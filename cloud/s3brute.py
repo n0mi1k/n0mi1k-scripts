@@ -1,3 +1,4 @@
+# Author github.com/n0mi1k
 import requests
 import argparse
 import dns.resolver

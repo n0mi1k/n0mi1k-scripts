@@ -1,4 +1,4 @@
-# Author n0mi1k
+# Author github.com/n0mi1k
 # A python script to extract certificate data from an endpoint
 # python3 certinfo.py -e "www.google.com, www.apple.com, censys.io"
 # Tool currently returns a list containing dictionaries of endpoint outputs

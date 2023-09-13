@@ -1,3 +1,4 @@
+# Author github.com/n0mi1k
 # A simple tool to compare 2 txt files and return lines found in second_file but not in first file
 # Great for comparing for new URLs
 import sys

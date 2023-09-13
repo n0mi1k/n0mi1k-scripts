@@ -3,7 +3,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-// An Android 13 reverse shell payload by n0mi1k
+// An Android 13 reverse shell payload by github.com/n0mi1k
 // Read More: https://medium.com/@n0mi1k/a-simple-java-reverse-shell-payload-for-android-13-0-tiramisu-and-below-without-using-msfvenom-a72c6e13f33a
 
 // Reverse shell backdoor function

@@ -1,3 +1,4 @@
+# Author github.com/n0mi1k
 import os
 import shutil
 

@@ -1,15 +1,19 @@
 # Author github.com/n0mi1k
+# This script is created to grab the IPA file before deletion by Apple Configurator after downloading
 import os
 import shutil
 
 """
 Steps to retrieve the IPA file from the Configurator app:
 
-1. Install Apple Configurator from the Mac App Store and sign in
-2. Connect your iOS device to your Mac
+1. Install Apple Configurator from the Mac App Store and sign in to Apple ID
+2. Connect your IOS device to your Mac
 3. Select "Add > Apps..." and search for the app you want to install, click "Add"
 4. The newer Apple Configurator deletes the IPA after installing it, so you'll need to use this tool to grab it
 5. Run this script and wait for the app to be installed
+6. The IPA will be quickly copied to ipaDir before it is deleted by Apple Configurator
+
+IPAs can be used for analysis later on =)
 
 NOTE: Remember to modify appsDir and ipaDir accordingly below
 """

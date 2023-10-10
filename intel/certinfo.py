@@ -2,6 +2,7 @@
 # A python script to extract certificate data from an endpoint
 # python3 certinfo.py -e "www.google.com, www.apple.com, censys.io"
 # Tool currently returns a list containing dictionaries of endpoint outputs
+# Ideally, results can be fed to other APIs such as Censys, Shodan, etc.
 # Requires pip install pyOpenSSL
 
 import socket
@@ -15,7 +16,7 @@ def getCertInfo(endpoint):
 
     dst = (endpoint, 443)
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.settimeout(3) # Set 5s timeout for unreachable hosts
+    s.settimeout(5) # Set 5s timeout for unreachable hosts
 
     try:
         s.connect(dst)
@@ -65,6 +66,7 @@ def getCertInfo(endpoint):
         "Has Expired" : ExpiryStatus 
     }
 
+    # Close socket when done
     s.shutdown(socket.SHUT_RDWR)
     s.close()
     return certInfo
@@ -76,22 +78,33 @@ def main():
                                     usage='%(prog)s -e ENDPOINTS')
 
     parser.add_argument("-e", "--endpoints", help="endpoints to scan separated by commas", required=True)
+    parser.add_argument("-p", "--print", default=False, action=argparse.BooleanOptionalAction) # If set, it will print result
     args = parser.parse_args()
 
     endpoints = args.endpoints.split(",")
 
-    certData = [] # List containing dictionaries of endpoints
+    certData = [] # List containing dict of endpoints
 
     for endpoint in endpoints:
+        if 'http://' in endpoint:
+            endpoint = endpoint.replace("http://", "")
+        elif 'https://' in endpoint:
+            endpoint = endpoint.replace("https://", "")
+
         certResult = getCertInfo(endpoint.strip())
         if certResult: # Append only positive results
             certData.append(certResult)
+        else:
+            print(f"Error: {endpoint} timeout or not an SSL endpoint!")
     
-    for cert in certData:
-        print(f"\n--Certificate Info for {cert['Endpoint']}--")
-        for params, value in cert.items():
-            print(f"{params} : {value}")
+    if args.print: 
+        for cert in certData:
+            print(f"\n--Certificate Info for {cert['Endpoint']}--")
+            for params, value in cert.items():
+                print(f"{params} : {value}")  
+
+    # The results are saved into certData dict, ready to implement on other tools
+    # print(certData)
 
 if __name__ == '__main__':
     main()
-
